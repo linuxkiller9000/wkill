@@ -11,10 +11,23 @@ else
     echo "Target eliminated"
 fi
 }
-
+SWAY(){
+PID=$(sleep 2 && swaymsg -t get_tree | jq '.. | select(.focused? == true).pid')
+if [[ $PID = "null" ]]; then
+    echo "Nothing to do"
+else
+    echo "Target found with PID of $PID"
+    kill -9 "$PID"
+    echo "Target eliminated"
+fi
+}
 
 
 if [[ $desktop = "niri" ]]; then
-    echo "desktop found"
+    echo "Desktop found: Niri-based compositor"
     NIRI
+elif [[ $desktop = "sway" || $desktop = "volare" || $desktop = "scroll" || $desktop = "swayfx" ]]; then
+    echo "Desktop found: Sway-based compositor"
+    SWAY
 fi
+
