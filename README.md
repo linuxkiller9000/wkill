@@ -22,12 +22,12 @@ A lightweight, universal Bash utility designed to gracefully close or kill the c
 
 1. Clone the repository to your local machine:
    ```bash
-   git clone git@github.com:linuxkiller9000/wkill.git
+    git clone [https://github.com/linuxkiller9000/wkill.git](https://github.com/linuxkiller9000/wkill.git)
 2. make it executable:
    ```bash
    cd wkill && chmod +x wkill.sh
 
 ## usage
-  2. go to the file location and run it:
+  3. go to the file location and run it:
    ```bash
    cd wkill && ./wkill.sh
