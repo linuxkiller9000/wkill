@@ -15,9 +15,11 @@ A lightweight, universal Bash utility designed to gracefully close or kill the c
 * **River Group:** River, Croffle
 * **Qtile**
 * **KDE Group:** KDE Plasma, Theseus
-* **GNOME Group:** GNOME, Mutter, Muffin, Magpie, ukwm
 * **Hyprland**
-
+if any one want to be a contributor just reach out for me discord=1.honey_block
+gnome grope are broken so if any one can fix it i`d apreceate it the gnome grope are
+GNOME Group: GNOME, Mutter, Muffin, Magpie, ukwm
+the tested and known working is niri 
 ## Installation & Setup
 
 1. Clone the repository to your local machine:
