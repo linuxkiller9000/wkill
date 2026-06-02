@@ -30,4 +30,4 @@ A lightweight, universal Bash utility designed to gracefully close or kill the c
 ## usage
   3. go to the file location and run it:
    ```bash
-   cd wkill && ./wkill.sh
+    ./wkill.sh
