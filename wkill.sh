@@ -52,7 +52,7 @@ else
 fi
 }
 GNOME(){
-PID=$(sleep 2 && gdbus call --e --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Eval "global.get_window_actors().find(a => a.meta_window.has_focus()).meta_window.get_pid()" | awk -F"'" '{print $2}')
+PID=$(sleep 2 && gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Eval "global.get_window_actors().find(a => a.meta_window.has_focus()).meta_window.get_pid()" | awk -F"'" '{print $2}')
 if [[ "$PID" = "null" ]] || [[ -z "$PID" ]]; then
     echo "Nothing to do"
 else
