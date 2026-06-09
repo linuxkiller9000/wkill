@@ -1,75 +1,44 @@
 #!/bin/bash
 echo "You have only 2 seconds to focus the window you want to close"
+sleep 2
 desktop=$(echo "$XDG_CURRENT_DESKTOP" | tr '[:upper:]' '[:lower:]')
+ELIMINATE(){
+    local pid=$(echo "$1" | tr -d '"' | tr -d "'")
+    if [[ "$pid" = "null" ]] || [[ -z "$pid" ]]; then
+        echo "Nothing to do"
+    else
+        echo "Target found with PID of $pid"
+        kill -9 "$pid"
+        echo "Target eliminated"
+    fi
+}
 NIRI(){
-PID=$(sleep 2 && niri msg --json focused-window | jq '.pid')
-if [[ "$PID" = "null" ]] || [[ -z "$PID" ]]; then
-    echo "Nothing to do"
-else
-    echo "Target found with PID of $PID"
-    kill -9 "$PID"
-    echo "Target eliminated"
-fi
+PID=$(niri msg --json focused-window | jq '.pid')
+ELIMINATE "$PID"
 }
 SWAY(){
-PID=$(sleep 2 && swaymsg -t get_tree | jq '.. | select(.focused? == true).pid')
-if [[ "$PID" = "null" ]] || [[ -z "$PID" ]]; then
-    echo "Nothing to do"
-else
-    echo "Target found with PID of $PID"
-    kill -9 "$PID"
-    echo "Target eliminated"
-fi
+PID=$(swaymsg -t get_tree | jq '.. | select(.focused? == true).pid')
+ELIMINATE "$PID"
 }
 NILE(){
-PID=$(sleep 2 && lsw -j | jq 'select(.focused == true).pid')
-if [[ "$PID" = "null" ]] || [[ -z "$PID" ]]; then
-    echo "Nothing to do"
-else
-    echo "Target found with PID of $PID"
-    kill -9 "$PID"
-    echo "Target eliminated"
-fi
+PID=$(lsw -j | jq 'select(.focused == true).pid')
+ELIMINATE "$PID"
 }
 QTILE(){
-PID=$(sleep 2 && qtile cmd-obj -o window -f info | jq '.pid')
-if [[ "$PID" = "null" ]] || [[ -z "$PID" ]]; then
-    echo "Nothing to do"
-else
-    echo "Target found with PID of $PID"
-    kill -9 "$PID"
-    echo "Target eliminated"
-fi
+PID=$(qtile cmd-obj -o window -f info | jq '.pid')
+ELIMINATE "$PID"
 }
 KDE(){
-PID=$(sleep 2 && qdbus org.kde.KWin /KWin org.kde.KWin.queryWindowInfo | grep "processId:" | awk '{print $2}')
-if [[ "$PID" = "null" ]] || [[ -z "$PID" ]]; then
-    echo "Nothing to do"
-else
-    echo "Target found with PID of $PID"
-    kill -9 "$PID"
-    echo "Target eliminated"
-fi
+PID=$(qdbus org.kde.KWin /KWin org.kde.KWin.queryWindowInfo | grep "processId:" | awk '{print $2}')
+ELIMINATE "$PID"
 }
 GNOME(){
-PID=$(sleep 2 && gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Eval "global.get_window_actors().find(a => a.meta_window.has_focus()).meta_window.get_pid()" | awk -F"'" '{print $2}')
-if [[ "$PID" = "null" ]] || [[ -z "$PID" ]]; then
-    echo "Nothing to do"
-else
-    echo "Target found with PID of $PID"
-    kill -9 "$PID"
-    echo "Target eliminated"
-fi
+PID=$(gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Eval "global.get_window_actors().find(a => a.meta_window.has_focus()).meta_window.get_pid()" | awk -F"'" '{print $2}')
+ELIMINATE "$PID"
 }
 HYPR(){
-PID=$(sleep 2 && hyprctl activewindow -j | jq '.pid')
-if [[ "$PID" = "null" ]] || [[ -z "$PID" ]]; then
-    echo "Nothing to do"
-else
-    echo "Target found with PID of $PID"
-    kill -9 "$PID"
-    echo "Target eliminated"
-fi
+PID=$(hyprctl activewindow -j | jq '.pid')
+ELIMINATE "$PID"
 }
 if [[ $desktop = "niri" ]]; then
     echo "compositor found: Niri"
