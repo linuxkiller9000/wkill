@@ -4,7 +4,7 @@ A lightweight, universal Bash utility designed to gracefully close or kill the c
 
 ## Features
 
-* **Smart Delay:** Gives you a 4-second countdown timer to move your mouse and focus the exact window you want to destroy.
+* **Smart Delay:** Gives you a 2-second countdown timer to move your mouse and focus the exact window you want to destroy.
 * **Universal Support:** Automatically detects your running environment and triggers the correct native window management command.
 * **Open Source:** Licensed under the GNU GPLv3 to ensure the code remains free and open forever.
 
